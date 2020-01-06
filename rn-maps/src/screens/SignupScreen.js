@@ -1,0 +1,87 @@
+import React from "react"
+import { View, StyleSheet, TouchableOpacity } from "react-native"
+import { Text, Input, Button } from "react-native-elements"
+import Spacer from "../components/Spacer"
+
+class SignupScreen extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      email: "",
+      password: ""
+    }
+  }
+
+  handleSignup = () => {
+    console.log(`email is ${this.state.email}`)
+    console.log(`password is ${this.state.password}`)
+    // console.log("test")
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Spacer>
+          <Text h3>Sign up</Text>
+        </Spacer>
+
+        <Input
+          lael="Email"
+          value={this.state.email}
+          onChangeText={newEmail => {
+            this.setState({
+              email: newEmail
+            })
+          }}
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+        <Spacer />
+        <Input
+          label="Password"
+          value={this.state.password}
+          onChangeText={newPassword => {
+            this.setState({
+              password: newPassword
+            })
+          }}
+          autoCapitalize="none"
+          autoCorrect={false}
+          secureTextEntry={true}
+        />
+        <Spacer />
+        <Spacer>
+          <Button title="Sign up" onPress={this.handleSignup} />
+        </Spacer>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate("Signin")}
+        >
+          <Spacer>
+            <Text style={styles.link}>
+              Already have an account? {"\n\n"}Sign in instead
+            </Text>
+          </Spacer>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+}
+
+SignupScreen.navigationOptions = () => {
+  return {
+    header: null
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    marginBottom: 200
+  },
+  link: {
+    color: "blue"
+  }
+})
+
+export default SignupScreen
