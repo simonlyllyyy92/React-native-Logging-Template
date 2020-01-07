@@ -2,6 +2,8 @@ import React from "react"
 import { View, StyleSheet, TouchableOpacity } from "react-native"
 import { Text, Input, Button } from "react-native-elements"
 import Spacer from "../components/Spacer"
+import { postSignIn } from "../store/signin/action"
+import { connect } from "react-redux"
 
 class SigninScreen extends React.Component {
   constructor(props) {
@@ -13,9 +15,10 @@ class SigninScreen extends React.Component {
   }
 
   handleSignin = () => {
-    console.log(`email is ${this.state.email}`)
-    console.log(`password is ${this.state.password}`)
-    // console.log("test")
+    this.props.postSignIn({
+      email: this.state.email,
+      password: this.state.password
+    })
   }
 
   render() {
@@ -84,4 +87,14 @@ const styles = StyleSheet.create({
   }
 })
 
-export default SigninScreen
+const mapDispatchToProps = {
+  postSignIn
+}
+
+const mapStateToProps = state => {
+  return {
+    signInStatus: state.signIn.data
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SigninScreen)

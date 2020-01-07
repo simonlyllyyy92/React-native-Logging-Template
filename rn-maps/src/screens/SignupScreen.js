@@ -1,7 +1,9 @@
 import React from "react"
 import { View, StyleSheet, TouchableOpacity } from "react-native"
 import { Text, Input, Button } from "react-native-elements"
+import { connect } from "react-redux"
 import Spacer from "../components/Spacer"
+import { postSignUp } from "../store/signup/action"
 
 class SignupScreen extends React.Component {
   constructor(props) {
@@ -16,6 +18,10 @@ class SignupScreen extends React.Component {
     console.log(`email is ${this.state.email}`)
     console.log(`password is ${this.state.password}`)
     // console.log("test")
+    this.props.postSignUp({
+      email: this.state.email,
+      password: this.state.password
+    })
   }
 
   render() {
@@ -84,4 +90,14 @@ const styles = StyleSheet.create({
   }
 })
 
-export default SignupScreen
+const mapDispatchToProps = {
+  postSignUp
+}
+
+const mapStateToProps = state => {
+  return {
+    signUpStatus: state.signUp.data
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignupScreen)
