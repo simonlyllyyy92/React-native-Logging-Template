@@ -18,11 +18,15 @@ function* handlePostSignUp(action) {
     )
     console.log("sign up", signUpResponse.data)
     if (!_.isEmpty(signUpResponse.data)) {
-      yield put({
-        type: SignUpActionTypes.POST_SIGNUP_ACTION_SUCCESS,
-        payload: signUpResponse.data
-      })
-      navigate("Signin")
+      try {
+        yield put({
+          type: SignUpActionTypes.POST_SIGNUP_ACTION_SUCCESS,
+          payload: signUpResponse.data
+        })
+        navigate("Signin")
+      } catch (err) {
+        console.log(err)
+      }
     }
   } catch (e) {
     console.log(e)

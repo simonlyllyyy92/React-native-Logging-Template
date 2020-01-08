@@ -1,5 +1,6 @@
 import React from "react"
 import { createAppContainer, createSwitchNavigator } from "react-navigation"
+import { SafeAreaView } from "react-native"
 import { createStackNavigator } from "react-navigation-stack"
 import { Provider } from "react-redux"
 import { setNavigator } from "./src/navigationService"
@@ -18,12 +19,14 @@ const switchNavigator = createSwitchNavigator({
 const App = createAppContainer(switchNavigator)
 export default () => {
   return (
-    <Provider store={store}>
-      <App
-        ref={navigator => {
-          setNavigator(navigator)
-        }}
-      />
-    </Provider>
+    <SafeAreaView style={{ flex: 1 }}>
+      <Provider store={store}>
+        <App
+          ref={navigator => {
+            setNavigator(navigator)
+          }}
+        />
+      </Provider>
+    </SafeAreaView>
   )
 }

@@ -93,7 +93,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = state => {
   return {
-    signInStatus: state.signIn.data
+    signInStatus: state.signIn.signInInfo.data
   }
 }
 
