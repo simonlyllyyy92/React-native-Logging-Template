@@ -4282,6 +4282,11 @@ react-native-gesture-handler@~1.5.0:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-messages@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-messages/-/react-native-messages-0.3.0.tgz#529d81a5c4fe725721c5b15c03280472a04e51fa"
+  integrity sha512-XHhMCTO6IYae3iYhO1YXIx8+vgIXRq5g8vSLzff46b0qzQRDWoxUjC20ZQK/YutGZJ9gXTtdSjzAMsg1AurhYg==
+
 react-native-ratings@^6.3.0:
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/react-native-ratings/-/react-native-ratings-6.5.0.tgz#a1606ccba3c5b54eec8e6cfa4765a45cf0e4ab8d"
