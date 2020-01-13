@@ -18,3 +18,9 @@ third, we created an user info screen, after sign in successfully, it will navig
 next, we add another api call, to get the home page with required token in the header, and we get the user info from the database (here is the user's email address)
 
 Then we add some icon and styling for password and email input.
+
+the following functions that are added are log out
+
+in order to log out we change from storing token into reducer to storing token by asyncstorage (saga and reducer)
+
+after log out it will navigate back to the sign in

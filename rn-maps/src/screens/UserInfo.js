@@ -1,21 +1,36 @@
 import React from "react"
-import { View, StyleSheet, TouchableOpacity } from "react-native"
+import { View, StyleSheet, AsyncStorage } from "react-native"
 import { Text, Input, Button } from "react-native-elements"
 import Spacer from "../components/Spacer"
-import { getUserAuthInfo } from "../store/appUser/action"
+import { getUserAuthInfo, clearLoggingReducer } from "../store/appUser/action"
 import { connect } from "react-redux"
+import { navigate } from "../navigationService"
 
 class UserInfo extends React.Component {
   constructor(props) {
     super(props)
   }
 
+  _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("Login token")
+      if (value !== null) {
+        await AsyncStorage.removeItem("Login token")
+        navigate("Signin")
+      } else {
+        navigate("Signin")
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  }
+
   componentDidMount() {
     this.props.getUserAuthInfo()
   }
+
   handleLogout = () => {
-    console.log("Log out button clicked")
-    console.log(this.props.userInfo)
+    this._retrieveData()
   }
 
   render() {
@@ -60,7 +75,8 @@ const styles = StyleSheet.create({
 })
 
 const mapDispatchToProps = {
-  getUserAuthInfo
+  getUserAuthInfo,
+  clearLoggingReducer
 }
 
 const mapStateToProps = state => {

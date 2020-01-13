@@ -16,7 +16,7 @@ function* handlePostSignUp(action) {
         }
       }
     )
-    console.log("sign up", signUpResponse.data)
+
     if (!_.isEmpty(signUpResponse.data)) {
       yield put({
         type: SignUpActionTypes.POST_SIGNUP_ACTION_SUCCESS,

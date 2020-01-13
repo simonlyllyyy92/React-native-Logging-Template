@@ -27,13 +27,23 @@ export const reducer = (state = initialState, action) => {
         signInInfo: {
           isLoading: false,
           error: {},
-          data: payload
+          data: {}
         }
       }
     case SignInActionTypes.POST_SIGNIN_ACTION_FAILED:
       return {
         ...state,
         signInInfo: {
+          isLoading: false,
+          error: {},
+          data: {}
+        }
+      }
+
+    case SignInActionTypes.CLEAR_LOGGIN_REDUCER:
+      return {
+        ...state,
+        signinInfo: {
           isLoading: false,
           error: {},
           data: {}

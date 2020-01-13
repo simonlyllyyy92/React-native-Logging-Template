@@ -17,7 +17,6 @@ class SignupScreen extends React.Component {
   }
 
   handleSignup = () => {
-    // console.log("test")
     this.props.postSignUp({
       email: this.state.email,
       password: this.state.password

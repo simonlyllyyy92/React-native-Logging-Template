@@ -1,4 +1,5 @@
 import { fork, put, takeLatest, race, take } from "redux-saga/effects"
+import { AsyncStorage } from "react-native"
 import { SignInActionTypes } from "./constant"
 import axios from "../../api/config"
 import { navigate } from "../../navigationService"
@@ -6,6 +7,13 @@ import { navigate } from "../../navigationService"
 //handler
 function* handlePostSignIn(action) {
   const { email, password } = action.payload
+  const _storeData = async props => {
+    try {
+      await AsyncStorage.setItem("Login token", props)
+    } catch (error) {
+      // Error saving data
+    }
+  }
   try {
     const signInResponse = yield axios.post(
       "/signin",
@@ -16,13 +24,12 @@ function* handlePostSignIn(action) {
         }
       }
     )
-    console.log("登陆状态", signInResponse.data)
 
     yield put({
-      type: SignInActionTypes.POST_SIGNIN_ACTION_SUCCESS,
-      payload: signInResponse.data
+      type: SignInActionTypes.POST_SIGNIN_ACTION_SUCCESS
     })
 
+    _storeData(signInResponse.data.token)
     navigate("MainFlow")
   } catch (err) {
     yield put({
