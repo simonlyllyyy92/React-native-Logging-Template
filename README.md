@@ -7,11 +7,10 @@ To run that
 1. clone and run yarn install or npm install
 2. expo start || npm start || yarn start
 
-this is the V2 template of sign in and sign up, in this template, it is configured and connected to the express-signIn-server(https://github.com/simonlyllyyy92/Express-Signin-server) which has been successfully deployed to heroku.
+this is the V3 template of sign in and sign up which is the final version
 
-in this template, we used react redux, redux saga to make api request call and store the response token into reducer, the base URL has been set in config.js file in api folder.
+in this version, first we add sign up and sign in failed action to avoid loading icon keep showing when action failed
 
-Besides this also can be another redux and saga configuration template for future reference
-the navigationService.js file could be a good example for how to access navigation props outside of the mainflow.
+second, we clear up the input value every time we attempt to sign in or sign up
 
-The next version of this template will be added new pages and Loading Icon and other upgrades.
+third, we created an user info screen, after sign in successfully, it will navigate to userinfo screen.

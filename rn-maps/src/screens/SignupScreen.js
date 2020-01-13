@@ -16,12 +16,14 @@ class SignupScreen extends React.Component {
   }
 
   handleSignup = () => {
-    console.log(`email is ${this.state.email}`)
-    console.log(`password is ${this.state.password}`)
     // console.log("test")
     this.props.postSignUp({
       email: this.state.email,
       password: this.state.password
+    })
+    this.setState({
+      email: "",
+      password: ""
     })
   }
 
@@ -37,7 +39,7 @@ class SignupScreen extends React.Component {
             </Spacer>
 
             <Input
-              lael="Email"
+              label="Email"
               value={this.state.email}
               onChangeText={newEmail => {
                 this.setState({

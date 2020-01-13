@@ -8,6 +8,7 @@ import store from "./src/store/setStore"
 
 import SigninScreen from "./src/screens/SigninScreen"
 import SignupScreen from "./src/screens/SignupScreen"
+import UserInfoScreen from "./src/screens/UserInfo"
 
 import { MessageBar } from "react-native-messages"
 
@@ -15,6 +16,9 @@ const switchNavigator = createSwitchNavigator({
   LoginFlow: createStackNavigator({
     Signup: SignupScreen,
     Signin: SigninScreen
+  }),
+  MainFlow: createStackNavigator({
+    UserInfo: UserInfoScreen
   })
 })
 

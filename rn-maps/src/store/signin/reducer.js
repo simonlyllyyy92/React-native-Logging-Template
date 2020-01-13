@@ -30,7 +30,15 @@ export const reducer = (state = initialState, action) => {
           data: payload
         }
       }
-
+    case SignInActionTypes.POST_SIGNIN_ACTION_FAILED:
+      return {
+        ...state,
+        signInInfo: {
+          isLoading: false,
+          error: {},
+          data: {}
+        }
+      }
     default:
       return state
   }

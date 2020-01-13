@@ -19,21 +19,20 @@ function* handlePostSignUp(action) {
     )
     console.log("sign up", signUpResponse.data)
     if (!_.isEmpty(signUpResponse.data)) {
-      try {
-        showMessage("Sign up success, please log in!")
-        yield put({
-          type: SignUpActionTypes.POST_SIGNUP_ACTION_SUCCESS,
-          payload: signUpResponse.data
-        })
-        navigate("Signin")
-      } catch (err) {
-        showMessage("Sign Up failed please try again!")
-        console.log(err)
-      }
+      showMessage("Sign up success, please log in!")
+      yield put({
+        type: SignUpActionTypes.POST_SIGNUP_ACTION_SUCCESS,
+        payload: signUpResponse.data
+      })
+      navigate("Signin")
+    } else {
     }
   } catch (e) {
-    console.log(e)
+    yield put({
+      type: SignUpActionTypes.POST_SIGNUP_ACTION_FAILED
+    })
     navigate("Signup")
+    showMessage("Sign Up failed please try again!")
   }
 }
 

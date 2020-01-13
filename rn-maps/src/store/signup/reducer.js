@@ -29,6 +29,15 @@ export default (state = initialState, action) => {
           data: payload
         }
       }
+    case SignUpActionTypes.POST_SIGNUP_ACTION_FAILED:
+      return {
+        ...state,
+        signUpInfo: {
+          isLoading: false,
+          error: {},
+          data: {}
+        }
+      }
 
     default:
       return state
