@@ -2,7 +2,6 @@ import { fork, put, takeLatest, race, take } from "redux-saga/effects"
 import { SignInActionTypes } from "./constant"
 import axios from "../../api/config"
 import { navigate } from "../../navigationService"
-import { showMessage } from "react-native-messages"
 
 //handler
 function* handlePostSignIn(action) {
@@ -23,13 +22,13 @@ function* handlePostSignIn(action) {
       type: SignInActionTypes.POST_SIGNIN_ACTION_SUCCESS,
       payload: signInResponse.data
     })
-    showMessage("Sign In success")
+
     navigate("MainFlow")
   } catch (err) {
     yield put({
       type: SignInActionTypes.POST_SIGNIN_ACTION_FAILED
     })
-    showMessage("Sign In failed, please try again")
+
     navigate("Signin")
     console.log(err)
   }

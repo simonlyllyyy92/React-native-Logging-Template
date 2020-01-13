@@ -10,8 +10,6 @@ import SigninScreen from "./src/screens/SigninScreen"
 import SignupScreen from "./src/screens/SignupScreen"
 import UserInfoScreen from "./src/screens/UserInfo"
 
-import { MessageBar } from "react-native-messages"
-
 const switchNavigator = createSwitchNavigator({
   LoginFlow: createStackNavigator({
     Signup: SignupScreen,
@@ -32,7 +30,6 @@ export default () => {
             setNavigator(navigator)
           }}
         />
-        <MessageBar />
       </Provider>
     </SafeAreaView>
   )

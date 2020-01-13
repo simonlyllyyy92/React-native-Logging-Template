@@ -14,3 +14,7 @@ in this version, first we add sign up and sign in failed action to avoid loading
 second, we clear up the input value every time we attempt to sign in or sign up
 
 third, we created an user info screen, after sign in successfully, it will navigate to userinfo screen.
+
+next, we add another api call, to get the home page with required token in the header, and we get the user info from the database (here is the user's email address)
+
+Then we add some icon and styling for password and email input.

@@ -5,6 +5,7 @@ import { connect } from "react-redux"
 import Spacer from "../components/Spacer"
 import { postSignUp } from "../store/signup/action"
 import LoadingIcon from "../components/LoadingSpanner"
+import Icon from "react-native-vector-icons/FontAwesome"
 
 class SignupScreen extends React.Component {
   constructor(props) {
@@ -48,6 +49,9 @@ class SignupScreen extends React.Component {
               }}
               autoCapitalize="none"
               autoCorrect={false}
+              leftIcon={
+                <Icon name="envelope" size={19} style={{ marginRight: 16 }} />
+              }
             />
             <Spacer />
             <Input
@@ -61,6 +65,9 @@ class SignupScreen extends React.Component {
               autoCapitalize="none"
               autoCorrect={false}
               secureTextEntry={true}
+              leftIcon={
+                <Icon name="lock" size={24} style={{ marginRight: 16 }} />
+              }
             />
             <Spacer />
             <Spacer>

@@ -5,6 +5,7 @@ import Spacer from "../components/Spacer"
 import { postSignIn } from "../store/signin/action"
 import { connect } from "react-redux"
 import LoadingIcon from "../components/LoadingSpanner"
+import Icon from "react-native-vector-icons/FontAwesome"
 
 class SigninScreen extends React.Component {
   constructor(props) {
@@ -46,6 +47,9 @@ class SigninScreen extends React.Component {
               }}
               autoCapitalize="none"
               autoCorrect={false}
+              leftIcon={
+                <Icon name="envelope" size={19} style={{ marginRight: 16 }} />
+              }
             />
             <Spacer />
             <Input
@@ -59,6 +63,9 @@ class SigninScreen extends React.Component {
               autoCapitalize="none"
               autoCorrect={false}
               secureTextEntry={true}
+              leftIcon={
+                <Icon name="lock" size={24} style={{ marginRight: 16 }} />
+              }
             />
             <Spacer />
             <Spacer>
@@ -94,6 +101,9 @@ const styles = StyleSheet.create({
   },
   link: {
     color: "blue"
+  },
+  iconStyle: {
+    marginRight: 12
   }
 })
 
