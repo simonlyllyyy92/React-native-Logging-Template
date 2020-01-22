@@ -14,4 +14,4 @@ in this template, we used react redux, redux saga to make api request call and s
 Besides this also can be another redux and saga configuration template for future reference
 the navigationService.js file could be a good example for how to access navigation props outside of the mainflow.
 
-# The next version of this template will be added new pages and Loading Icon and other upgrades.
+# The next version of this template will be added new pages and Loading Icon and other upgrades which can be found at V3master branch
