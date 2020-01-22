@@ -7,7 +7,6 @@ import { connect } from "react-redux"
 import LoadingIcon from "../components/LoadingSpanner"
 import Icon from "react-native-vector-icons/FontAwesome"
 import _ from "lodash"
-import { navigate } from "../navigationService"
 
 class SigninScreen extends React.Component {
   constructor(props) {
@@ -16,20 +15,6 @@ class SigninScreen extends React.Component {
       email: "",
       password: ""
     }
-  }
-
-  _retrieveData = async () => {
-    try {
-      const value = await AsyncStorage.getItem("Login token")
-      if (value !== null) {
-        navigate("UserInfo")
-      }
-    } catch (error) {
-      // Error retrieving data
-    }
-  }
-  componentDidMount() {
-    this._retrieveData()
   }
 
   handleSignin = () => {

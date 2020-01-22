@@ -12,10 +12,12 @@ import SigninScreen from "./src/screens/SigninScreen"
 import SignupScreen from "./src/screens/SignupScreen"
 import UserInfoScreen from "./src/screens/UserInfo"
 import CounterScreen from "./src/screens/Counter"
+import ResolveAuthScreen from "./src/screens/ResolveAuthScreen"
 
 const { persistor, store } = storeConfig()
 
 const switchNavigator = createSwitchNavigator({
+  ResolveAuth: ResolveAuthScreen,
   LoginFlow: createStackNavigator({
     Signup: SignupScreen,
     Signin: SigninScreen
