@@ -13,3 +13,7 @@ export const navigate = (routeName, params) => {
     })
   )
 }
+
+export const goBack = () => {
+  _navigator.dispatch(NavigationActions.back())
+}

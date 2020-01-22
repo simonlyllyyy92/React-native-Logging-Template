@@ -1,11 +1,13 @@
 import React from "react"
-import { View, StyleSheet, TouchableOpacity } from "react-native"
+import { View, StyleSheet, TouchableOpacity, AsyncStorage } from "react-native"
 import { Text, Input, Button } from "react-native-elements"
 import { connect } from "react-redux"
 import Spacer from "../components/Spacer"
 import { postSignUp } from "../store/signup/action"
 import LoadingIcon from "../components/LoadingSpanner"
 import Icon from "react-native-vector-icons/FontAwesome"
+import _ from "lodash"
+import { navigate } from "../navigationService"
 
 class SignupScreen extends React.Component {
   constructor(props) {
@@ -13,6 +15,17 @@ class SignupScreen extends React.Component {
     this.state = {
       email: "",
       password: ""
+    }
+  }
+
+  _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("Login token")
+      if (value !== null) {
+        navigate("MainFlow")
+      }
+    } catch (error) {
+      // Error retrieving data
     }
   }
 
@@ -28,6 +41,7 @@ class SignupScreen extends React.Component {
   }
 
   render() {
+    this._retrieveData()
     return (
       <>
         {this.props.signUpStatus ? (
