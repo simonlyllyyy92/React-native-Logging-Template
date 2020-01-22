@@ -7,3 +7,8 @@ export const getUserAuthInfo = () => ({
 export const clearLoggingReducer = () => ({
   type: UserInfoActionTypes.CLEAR_LOGGIN_REDUCER
 })
+
+export const storeNumber = payload => ({
+  type: UserInfoActionTypes.STORE_NUMBER,
+  payload
+})

@@ -5,6 +5,7 @@ import Spacer from "../components/Spacer"
 import { getUserAuthInfo, clearLoggingReducer } from "../store/appUser/action"
 import { connect } from "react-redux"
 import { navigate } from "../navigationService"
+import Icon from "react-native-vector-icons/FontAwesome"
 
 class UserInfo extends React.Component {
   constructor(props) {
@@ -59,7 +60,9 @@ class UserInfo extends React.Component {
 
 UserInfo.navigationOptions = () => {
   return {
-    header: null
+    header: null,
+    tabBarLabel: "Home",
+    tabBarIcon: ({ tintColor }) => <Icon name="home" size={20} />
   }
 }
 

@@ -5,6 +5,11 @@ export const initialState = {
     isLoading: false,
     error: {},
     data: ""
+  },
+  storedNum: {
+    isLoading: false,
+    error: {},
+    data: 0
   }
 }
 
@@ -23,6 +28,15 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         userInfo: {
+          isLoading: false,
+          error: {},
+          data: action.payload
+        }
+      }
+    case UserInfoActionTypes.STORE_NUMBER:
+      return {
+        ...state,
+        storedNum: {
           isLoading: false,
           error: {},
           data: action.payload
