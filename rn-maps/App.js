@@ -14,6 +14,8 @@ import UserInfoScreen from "./src/screens/UserInfo"
 import CounterScreen from "./src/screens/Counter"
 import ResolveAuthScreen from "./src/screens/ResolveAuthScreen"
 
+import GeneralAlert from "./src/components/GeneralAlert"
+
 const { persistor, store } = storeConfig()
 
 const switchNavigator = createSwitchNavigator({
@@ -34,11 +36,13 @@ export default () => {
     <SafeAreaView style={{ flex: 1 }}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <App
-            ref={navigator => {
-              setNavigator(navigator)
-            }}
-          />
+          <GeneralAlert>
+            <App
+              ref={navigator => {
+                setNavigator(navigator)
+              }}
+            />
+          </GeneralAlert>
         </PersistGate>
       </Provider>
     </SafeAreaView>

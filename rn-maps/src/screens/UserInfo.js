@@ -6,6 +6,7 @@ import { getUserAuthInfo, clearLoggingReducer } from "../store/appUser/action"
 import { connect } from "react-redux"
 import { navigate } from "../navigationService"
 import Icon from "react-native-vector-icons/FontAwesome"
+import { showAlert } from "../store/generalAlert/action"
 
 class UserInfo extends React.Component {
   constructor(props) {
@@ -17,8 +18,10 @@ class UserInfo extends React.Component {
       const value = await AsyncStorage.getItem("Login token")
       if (value !== null) {
         await AsyncStorage.removeItem("Login token")
+        this.props.showAlert("Log out success !")
         navigate("Signin")
       } else {
+        this.props.showAlert("Log out failed, please try again !")
         navigate("Signin")
       }
     } catch (error) {
@@ -79,7 +82,8 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = {
   getUserAuthInfo,
-  clearLoggingReducer
+  clearLoggingReducer,
+  showAlert
 }
 
 const mapStateToProps = state => {

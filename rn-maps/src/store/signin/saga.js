@@ -3,10 +3,12 @@ import { AsyncStorage } from "react-native"
 import { SignInActionTypes } from "./constant"
 import axios from "../../api/config"
 import { navigate } from "../../navigationService"
+import { showAlert } from "../generalAlert/action"
 
 //handler
 function* handlePostSignIn(action) {
   const { email, password } = action.payload
+
   const _storeData = async props => {
     try {
       await AsyncStorage.setItem("Login token", props)
@@ -30,12 +32,13 @@ function* handlePostSignIn(action) {
     })
 
     _storeData(signInResponse.data.token)
+    yield put(showAlert("Sign in success !"))
     navigate("MainFlow")
   } catch (err) {
     yield put({
       type: SignInActionTypes.POST_SIGNIN_ACTION_FAILED
     })
-
+    yield put(showAlert("Sign in failed, please try again !"))
     navigate("Signin")
     console.log(err)
   }
