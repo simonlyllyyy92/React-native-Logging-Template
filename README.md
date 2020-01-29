@@ -34,3 +34,5 @@ PS: one thing need to pay attention, is that, in react native, the storing engin
 I made some updates for token persist, by creating a new ResolveAuthScreen and put it as the default root screen. we can judge whether we have a token in the localstorage. if it does, we direct to home screen, if it doesn't it weill direct to signin screen
 
 in order to provide some proper alert, I add a new storage folder called generalAlert and created 2 different action for show and dismiss alert. After that, i created a new component called generalAlert in which i used Overlay as alert component, inside this generalAlert file, in order to better control the icon style later, i created a seperate tabBarIcon component. Finally, I rendered this generalAlert component in the App.js file and put it under the persist gate, contains the <App> tag. Cause in the generalAlert file, we put everything as child component at the bottom. So here we put everything that involves in our navigation under this general alert. As a result, every page can use this alert.
+
+# The next version will be adding 3rd party login function like face book login , which can be found at facebook login branch
