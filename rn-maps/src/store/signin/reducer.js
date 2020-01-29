@@ -21,34 +21,17 @@ export const reducer = (state = initialState, action) => {
         }
       }
 
-    case SignInActionTypes.POST_SIGNIN_ACTION_SUCCESS:
+    case SignInActionTypes.FB_SIGN_IN_SUCCESS:
       return {
         ...state,
         signInInfo: {
           isLoading: false,
           error: {},
-          data: {}
+          data: payload
         }
       }
-    case SignInActionTypes.POST_SIGNIN_ACTION_FAILED:
-      return {
-        ...state,
-        signInInfo: {
-          isLoading: false,
-          error: {},
-          data: {}
-        }
-      }
-
-    case SignInActionTypes.CLEAR_LOGGIN_REDUCER:
-      return {
-        ...state,
-        signinInfo: {
-          isLoading: false,
-          error: {},
-          data: {}
-        }
-      }
+    case SignInActionTypes.CLEAR_SIGNIN_STATE:
+      return initialState
     default:
       return state
   }

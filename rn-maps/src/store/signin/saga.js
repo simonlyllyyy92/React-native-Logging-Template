@@ -16,6 +16,7 @@ function* handlePostSignIn(action) {
       // Error saving data
     }
   }
+
   try {
     const signInResponse = yield axios.post(
       "/signin",
@@ -27,20 +28,39 @@ function* handlePostSignIn(action) {
       }
     )
 
-    yield put({
-      type: SignInActionTypes.POST_SIGNIN_ACTION_SUCCESS
-    })
+    yield put({ type: SignInActionTypes.CLEAR_SIGNIN_STATE })
 
     _storeData(signInResponse.data.token)
+
     yield put(showAlert("Sign in success !"))
     navigate("MainFlow")
   } catch (err) {
-    yield put({
-      type: SignInActionTypes.POST_SIGNIN_ACTION_FAILED
-    })
+    yield put({ type: SignInActionTypes.CLEAR_SIGNIN_STATE })
     yield put(showAlert("Sign in failed, please try again !"))
     navigate("Signin")
     console.log(err)
+  }
+}
+
+function* handleFbSignIn(action) {
+  const { payload } = action
+  const _removeData = async () => {
+    try {
+      await AsyncStorage.removeItem("Login token")
+      navigate("MainFlow")
+    } catch (error) {
+      // Error retrieving data
+    }
+  }
+
+  try {
+    yield put({
+      type: SignInActionTypes.FB_SIGN_IN_SUCCESS,
+      payload: payload
+    })
+    _removeData()
+  } catch (e) {
+    console.log(e)
   }
 }
 
@@ -49,6 +69,10 @@ function* watchPostSignIn() {
   yield takeLatest(SignInActionTypes.POST_SIGNIN_ACTION, handlePostSignIn)
 }
 
-const sagas = [fork(watchPostSignIn)]
+function* watchFbLogin() {
+  yield takeLatest(SignInActionTypes.FB_SIGN_IN, handleFbSignIn)
+}
+
+const sagas = [fork(watchPostSignIn), fork(watchFbLogin)]
 
 export default sagas

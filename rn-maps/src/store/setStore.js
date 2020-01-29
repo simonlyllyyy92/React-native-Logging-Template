@@ -10,7 +10,7 @@ import { persistReducer, persistStore } from "redux-persist"
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
-  whitelist: ["userInfo"]
+  whitelist: ["userInfo", "signIn"]
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

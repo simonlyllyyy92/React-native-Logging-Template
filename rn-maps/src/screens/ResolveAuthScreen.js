@@ -2,11 +2,14 @@ import React from "react"
 import { AsyncStorage } from "react-native"
 import { navigate } from "../navigationService"
 import { render } from "react-dom"
+import { connect } from "react-redux"
+import _ from "lodash"
 
 class ResolveAuthScreen extends React.Component {
   tryLocalSignin = async () => {
     const token = await AsyncStorage.getItem("Login token")
-    if (token) {
+    const FbInfo = this.props.FbUserInfo
+    if (token || !_.isEmpty(FbInfo)) {
       navigate("MainFlow")
     } else {
       navigate("Signin")
@@ -21,4 +24,10 @@ class ResolveAuthScreen extends React.Component {
   }
 }
 
-export default ResolveAuthScreen
+const mapStateToProps = state => {
+  return {
+    FbUserInfo: state.signIn.signInInfo.data
+  }
+}
+
+export default connect(mapStateToProps)(ResolveAuthScreen)
