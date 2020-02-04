@@ -27,15 +27,19 @@ function* handlePostSignIn(action) {
         }
       }
     )
-
-    yield put({ type: SignInActionTypes.CLEAR_SIGNIN_STATE })
+    yield put({
+      type: SignInActionTypes.POST_SIGNIN_ACTION_SUCCESS,
+      payload: signInResponse
+    })
 
     _storeData(signInResponse.data.token)
 
     yield put(showAlert("Sign in success !"))
     navigate("MainFlow")
   } catch (err) {
-    yield put({ type: SignInActionTypes.CLEAR_SIGNIN_STATE })
+    yield put({
+      type: SignInActionTypes.CLEAR_SIGNIN_STATE
+    })
     yield put(showAlert("Sign in failed, please try again !"))
     navigate("Signin")
     console.log(err)

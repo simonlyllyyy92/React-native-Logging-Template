@@ -5,6 +5,11 @@ export const initialState = {
     isLoading: false,
     error: {},
     data: {}
+  },
+  FbSigninInfo: {
+    isLoading: false,
+    error: {},
+    data: {}
   }
 }
 
@@ -21,10 +26,20 @@ export const reducer = (state = initialState, action) => {
         }
       }
 
-    case SignInActionTypes.FB_SIGN_IN_SUCCESS:
+    case SignInActionTypes.POST_SIGNIN_ACTION_SUCCESS:
       return {
         ...state,
         signInInfo: {
+          isLoading: false,
+          error: {},
+          data: payload
+        }
+      }
+
+    case SignInActionTypes.FB_SIGN_IN_SUCCESS:
+      return {
+        ...state,
+        FbSigninInfo: {
           isLoading: false,
           error: {},
           data: payload

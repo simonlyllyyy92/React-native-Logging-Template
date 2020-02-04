@@ -26,7 +26,7 @@ class ResolveAuthScreen extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    FbUserInfo: state.signIn.signInInfo.data
+    FbUserInfo: state.signIn.FbSigninInfo.data
   }
 }
 

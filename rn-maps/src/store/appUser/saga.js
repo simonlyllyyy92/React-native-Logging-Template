@@ -5,11 +5,20 @@ import { UserInfoActionTypes } from "./constant"
 import _ from "lodash"
 
 function* handleGetUserInfo(action) {
+  const { payload } = action
+
+  const _storeData = async props => {
+    try {
+      await AsyncStorage.setItem("Login token", props)
+    } catch (error) {
+      // Error saving data
+    }
+  }
+
   try {
-    const value = yield AsyncStorage.getItem("Login token")
     const userInfoResponse = yield axios.get("/", {
       headers: {
-        Authorization: `Bearer ${value}`
+        Authorization: `Bearer ${payload}`
       }
     })
 
@@ -18,6 +27,7 @@ function* handleGetUserInfo(action) {
         type: UserInfoActionTypes.GET_USER_AUTH_INFO_SUCCESS,
         payload: userInfoResponse.data
       })
+      _storeData(payload)
     }
   } catch (e) {
     console.log(e)

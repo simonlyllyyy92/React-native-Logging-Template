@@ -50,8 +50,12 @@ class UserInfo extends React.Component {
 
   async componentDidMount() {
     const value = await AsyncStorage.getItem("Login token")
+    const Fpvalue = this.props.FpUserInfo
+
     if (value !== null) {
-      this.props.getUserAuthInfo()
+      this.props.getUserAuthInfo(value)
+    } else if (!_.isEmpty(Fpvalue)) {
+      this.props.getUserAuthInfo(Fpvalue.data.token)
     }
   }
 
@@ -127,7 +131,8 @@ const mapDispatchToProps = {
 const mapStateToProps = state => {
   return {
     userInfo: state.userInfo.userInfo.data,
-    FbUserInfo: state.signIn.signInInfo.data
+    FbUserInfo: state.signIn.FbSigninInfo.data,
+    FpUserInfo: state.signIn.signInInfo.data
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(UserInfo)

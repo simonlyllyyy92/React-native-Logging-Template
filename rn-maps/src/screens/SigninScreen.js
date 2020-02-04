@@ -4,7 +4,11 @@ import {
   StyleSheet,
   TouchableOpacity,
   AsyncStorage,
-  Alert
+  Alert,
+  Platform,
+  Modal,
+  Image,
+  TouchableHighlight
 } from "react-native"
 import { Text, Input, Button } from "react-native-elements"
 import Spacer from "../components/Spacer"
@@ -15,13 +19,19 @@ import Icon from "react-native-vector-icons/FontAwesome"
 import _ from "lodash"
 import * as Facebook from "expo-facebook"
 import { navigate } from "../navigationService"
+import Constants from "expo-constants"
+import * as LocalAuthentication from "expo-local-authentication"
+import { showAlert } from "../store/generalAlert/action"
 
 class SigninScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      authenticated: false,
+      modalVisible: false,
+      failedCount: 0
     }
   }
 
@@ -34,6 +44,35 @@ class SigninScreen extends React.Component {
       email: "",
       password: ""
     })
+  }
+
+  setModalVisible = visible => {
+    this.setState({ modalVisible: visible })
+  }
+
+  clearState = () => {
+    this.setState({ authenticated: false, failedCount: 0 })
+  }
+
+  scanFingerPrint = async () => {
+    try {
+      let results = await LocalAuthentication.authenticateAsync()
+      if (results.success) {
+        this.setState({
+          modalVisible: false,
+          authenticated: true,
+          failedCount: 0
+        })
+        this.props.showAlert("Sign in success !")
+        navigate("UserInfo")
+      } else {
+        this.setState({
+          failedCount: this.state.failedCount + 1
+        })
+      }
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   logInFB = async () => {
@@ -55,8 +94,8 @@ class SigninScreen extends React.Component {
           `https://graph.facebook.com/me?access_token=${token}&fields=id,name,picture.type(large)`
         )
         const userInfo = await response.json()
-        Alert.alert("Logged in!", `Hi ${userInfo.name}!`)
         this.props.FBSignIn(userInfo)
+        Alert.alert("Logged in!", `Hi ${userInfo.name}!`)
       } else if (type === "cancel") {
         // type === 'cancel'
       }
@@ -110,7 +149,22 @@ class SigninScreen extends React.Component {
               <Button title="Sign in" onPress={this.handleSignin} />
             </Spacer>
             <Spacer>
-              <Button title="Sign in with FB" onPress={this.logInFB} />
+              <Button title="Facebook Sign in" onPress={this.logInFB} />
+            </Spacer>
+            <Spacer>
+              {!_.isEmpty(this.props.signInStatus) && (
+                <Button
+                  title="Finger print sign in"
+                  onPress={() => {
+                    this.clearState()
+                    if (Platform.OS === "android") {
+                      this.setModalVisible(!this.state.modalVisible)
+                    } else {
+                      this.scanFingerPrint()
+                    }
+                  }}
+                />
+              )}
             </Spacer>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate("Signup")}
@@ -121,6 +175,35 @@ class SigninScreen extends React.Component {
                 </Text>
               </Spacer>
             </TouchableOpacity>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={this.state.modalVisible}
+              onShow={this.scanFingerPrint}
+            >
+              <View style={styles.modal}>
+                <View style={styles.innerContainer}>
+                  <Text>Sign in with fingerprint</Text>
+                  <Image
+                    style={{ width: 128, height: 128 }}
+                    source={require("../assets/fingerprint.jpg")}
+                  />
+                  {this.state.failedCount > 0 && (
+                    <Text style={{ color: "red", fontSize: 14 }}>
+                      Failed to authenticate, press cancel and try again.
+                    </Text>
+                  )}
+                  <TouchableHighlight
+                    onPress={async () => {
+                      LocalAuthentication.cancelAuthenticate()
+                      this.setModalVisible(!this.state.modalVisible)
+                    }}
+                  >
+                    <Text style={{ color: "red", fontSize: 16 }}>Cancel</Text>
+                  </TouchableHighlight>
+                </View>
+              </View>
+            </Modal>
           </View>
         )}
       </>
@@ -150,13 +233,14 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = {
   postSignIn,
-  FBSignIn
+  FBSignIn,
+  showAlert
 }
 
 const mapStateToProps = state => {
   return {
     is_SignIn: state.signIn.signInInfo.isLoading,
-    FbUserInfo: state.signIn.signInInfo.data
+    signInStatus: state.signIn.signInInfo.data
   }
 }
 
