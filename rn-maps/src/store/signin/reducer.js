@@ -46,6 +46,12 @@ export const reducer = (state = initialState, action) => {
         }
       }
     case SignInActionTypes.CLEAR_SIGNIN_STATE:
+      // return {
+      //   ...state,
+      //   FbSigninInfo: {
+      //     ...initialState.FbSigninInfo
+      //   }
+      // }
       return initialState
     default:
       return state

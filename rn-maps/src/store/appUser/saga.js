@@ -27,7 +27,7 @@ function* handleGetUserInfo(action) {
         type: UserInfoActionTypes.GET_USER_AUTH_INFO_SUCCESS,
         payload: userInfoResponse.data
       })
-      _storeData(payload)
+      // _storeData(payload)
     }
   } catch (e) {
     console.log(e)

@@ -15,17 +15,26 @@ class UserInfo extends React.Component {
     super(props)
   }
 
+  _storeData = async props => {
+    try {
+      await AsyncStorage.setItem("Login token", props)
+    } catch (error) {
+      // Error saving data
+    }
+  }
+
   _retrieveData = async () => {
     try {
       const value = await AsyncStorage.getItem("Login token")
       const FBvalue = this.props.FbUserInfo
+      console.log(value)
       if (value !== null) {
         await AsyncStorage.removeItem("Login token")
         this.props.showAlert("Log out success !")
         navigate("Signin")
       } else if (!_.isEmpty(FBvalue)) {
         this.props.cleanSignInState()
-        this.props.showAlert("FaceBook Log out success !")
+        this.props.showAlert("Facebook Log out success !")
         navigate("Signin")
       } else {
         navigate("Signin")
@@ -51,11 +60,12 @@ class UserInfo extends React.Component {
   async componentDidMount() {
     const value = await AsyncStorage.getItem("Login token")
     const Fpvalue = this.props.FpUserInfo
-
+    const FBvalue = this.props.FbUserInfo
     if (value !== null) {
       this.props.getUserAuthInfo(value)
-    } else if (!_.isEmpty(Fpvalue)) {
+    } else if (_.isEmpty(FBvalue) && !_.isEmpty(Fpvalue)) {
       this.props.getUserAuthInfo(Fpvalue.data.token)
+      this._storeData(Fpvalue.data.token)
     }
   }
 
