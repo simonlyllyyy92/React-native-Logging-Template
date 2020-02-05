@@ -31,7 +31,7 @@ class UserInfo extends React.Component {
       if (value !== null) {
         await AsyncStorage.removeItem("Login token")
         this.props.showAlert("Log out success !")
-        navigate("Signin")
+        navigate("Signup")
       } else if (!_.isEmpty(FBvalue)) {
         this.props.cleanSignInState()
         this.props.showAlert("Facebook Log out success !")

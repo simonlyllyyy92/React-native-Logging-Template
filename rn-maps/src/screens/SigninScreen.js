@@ -104,6 +104,17 @@ class SigninScreen extends React.Component {
     }
   }
 
+  componentDidMount() {
+    if (!_.isEmpty(this.props.signInStatus)) {
+      this.clearState()
+      if (Platform.OS === "android") {
+        this.setModalVisible(!this.state.modalVisible)
+      } else {
+        this.scanFingerPrint()
+      }
+    }
+  }
+
   render() {
     return (
       <>
@@ -151,21 +162,7 @@ class SigninScreen extends React.Component {
             <Spacer>
               <Button title="Facebook Sign in" onPress={this.logInFB} />
             </Spacer>
-            <Spacer>
-              {!_.isEmpty(this.props.signInStatus) && (
-                <Button
-                  title="Finger print sign in"
-                  onPress={() => {
-                    this.clearState()
-                    if (Platform.OS === "android") {
-                      this.setModalVisible(!this.state.modalVisible)
-                    } else {
-                      this.scanFingerPrint()
-                    }
-                  }}
-                />
-              )}
-            </Spacer>
+
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate("Signup")}
             >

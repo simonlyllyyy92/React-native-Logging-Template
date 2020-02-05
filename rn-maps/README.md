@@ -25,3 +25,5 @@ For log out, this time we only clean up the token in local storage, but we keep 
 so what i did is, every time it tries to get the user info, it also store the reducer token to the local storage, but it has to meet the if statement that the current facebook login info is empty, and fingerprint value is NOT empty, so that facebook log out will not failed or after common login for one time, the second time we login by facebook, it will directly store the token to async storage. and fackbook log out will failed.
 
 anyway, this method let the userinfo always has user info when i navigate to that page. and finger print login will automatically login to the previous account. and when we logout and login with new account, it will store the new account token to the reducer. besides, if this is the first time that customer login, the finger print login will not be enabled which is good.
+
+Next step, I delete the finger print login button, istead i put it at the componentDidMount, to automatically trigger finger print login if it has common logged in before.
